@@ -1,0 +1,70 @@
+/* src/App.css */
+
+/* 1. The Split Screen Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.editor-side {
+  width: 40%;
+  padding: 2rem;
+  background-color: #f4f4f5;
+  overflow-y: auto; /* Adds a scrollbar if forms get too long */
+}
+
+.preview-side {
+  width: 60%;
+  padding: 2rem;
+  background-color: #52525b; /* Dark background to make the white CV pop */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+/* 2. The A4 Paper Illusion */
+.cv-page {
+  background-color: white;
+  width: 210mm;          /* Standard A4 Width */
+  min-height: 297mm;     /* Standard A4 Height */
+  padding: 20mm;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: #1a1a1a;
+}
+
+/* 3. Form Styling (Just to make it readable) */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.input-group input {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 4. THE PDF EXPORT MAGIC */
+@media print {
+  /* Hide the editor and the dark background when printing */
+  .editor-side, button {
+    display: none !important;
+  }
+
+  .preview-side {
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .cv-page {
+    box-shadow: none; /* Remove the shadow for the real PDF */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
