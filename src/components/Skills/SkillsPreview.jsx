@@ -7,7 +7,8 @@ function SkillsPreview({ skills }) {
       <ul className="skills-list">
         {skills.map((skill) => (
           <li key={skill.id}>
-            <strong>{skill.categoryName || 'Category'}:</strong> {skill.skillItems || 'Skill 1, Skill 2, Skill 3'}
+            <strong>{skill.categoryName || 'Category'}:</strong>{' '}
+            {skill.skillItems || 'Skill 1, Skill 2, Skill 3'}
           </li>
         ))}
       </ul>

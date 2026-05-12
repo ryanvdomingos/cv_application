@@ -105,7 +105,7 @@ button {
 }
 
 /* Primary Export Button */
-button[onClick*="window.print"] {
+button[onClick*='window.print'] {
   width: 100%;
   padding: 1rem;
   background-color: var(--primary);
@@ -113,7 +113,7 @@ button[onClick*="window.print"] {
   font-size: 1rem;
 }
 
-button[onClick*="window.print"]:hover {
+button[onClick*='window.print']:hover {
   background-color: var(--primary-hover);
 }
 
@@ -132,18 +132,33 @@ button[onClick*="window.print"]:hover {
 }
 
 /* Delete Button */
-button[onClick*="onDelete"] {
-  background-color: white;
-  color: var(--danger);
-  border: 1px solid var(--danger);
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+/* --- Modern Delete Button --- */
+.delete-btn-wrapper {
+  display: flex;
+  justify-content: flex-end; /* Pushes the button cleanly to the right */
   margin-bottom: 1.5rem;
 }
 
-button[onClick*="onDelete"]:hover {
-  background-color: var(--danger);
-  color: white;
+.delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  background-color: transparent;
+  color: var(--danger);
+  border: 1px solid transparent; /* Invisible border to prevent layout shift on hover */
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #fee2e2; /* Very light red background */
+  border-color: #fca5a5; /* Soft red border */
+}
+
+/* Make sure the SVG icon matches the text color */
+.delete-btn svg {
+  stroke: currentColor;
 }
 
 /* =========================================
@@ -196,11 +211,15 @@ button[onClick*="onDelete"]:hover {
 }
 
 /* Item Layouts (Experience, Projects, Education) */
-.experience-item, .project-item, .education-item {
+.experience-item,
+.project-item,
+.education-item {
   margin-bottom: 1rem;
 }
 
-.experience-header, .project-header, .education-header {
+.experience-header,
+.project-header,
+.education-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -226,12 +245,14 @@ button[onClick*="onDelete"]:hover {
    ========================================= */
 @media print {
   /* Hide the UI */
-  .editor-side, button {
+  .editor-side,
+  button {
     display: none !important;
   }
 
   /* Reset the container */
-  .app-container, .preview-side {
+  .app-container,
+  .preview-side {
     height: auto;
     width: 100%;
     padding: 0;

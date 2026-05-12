@@ -19,27 +19,42 @@ function App() {
   // 1. THE STATE (Grouped at the top)
   // ==========================================
   const [personalInfo, setPersonalInfo] = useState({
-    fullName: '', email: '', phoneNumber: '', address: ''
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
   });
 
   const [summary, setSummary] = useState('');
 
   const [experiences, setExperiences] = useState([
-    { id: crypto.randomUUID(), company: '', position: '', dates: '', description: '' }
+    {
+      id: crypto.randomUUID(),
+      company: '',
+      position: '',
+      dates: '',
+      description: '',
+    },
   ]);
 
   const [projects, setProjects] = useState([
-    { id: crypto.randomUUID(), title: '', techStack: '', location: '', dates: '', description: '' }
+    {
+      id: crypto.randomUUID(),
+      title: '',
+      techStack: '',
+      location: '',
+      dates: '',
+      description: '',
+    },
   ]);
 
   const [education, setEducation] = useState([
-    { id: crypto.randomUUID(), institution: '', degree: '', dates: '' }
+    { id: crypto.randomUUID(), institution: '', degree: '', dates: '' },
   ]);
 
   const [skills, setSkills] = useState([
-    { id: crypto.randomUUID(), categoryName: '', skillItems: '' }
+    { id: crypto.randomUUID(), categoryName: '', skillItems: '' },
   ]);
-
 
   // ==========================================
   // 2. THE HANDLERS (The Logic)
@@ -52,19 +67,27 @@ function App() {
 
   // --- Experience Handlers ---
   const addExperience = () => {
-    const newJob = { id: crypto.randomUUID(), company: '', position: '', dates: '', description: '' };
+    const newJob = {
+      id: crypto.randomUUID(),
+      company: '',
+      position: '',
+      dates: '',
+      description: '',
+    };
     setExperiences([...experiences, newJob]);
   };
 
   const deleteExperience = (idToRemove) => {
-    setExperiences(experiences.filter(job => job.id !== idToRemove));
+    setExperiences(experiences.filter((job) => job.id !== idToRemove));
   };
 
   const handleExperienceChange = (id, e) => {
     const { name, value } = e.target;
     setExperiences(
       experiences.map((job) => {
-        if (job.id === id) { return { ...job, [name]: value }; }
+        if (job.id === id) {
+          return { ...job, [name]: value };
+        }
         return job;
       })
     );
@@ -72,19 +95,28 @@ function App() {
 
   // --- Projects Handlers ---
   const addProject = () => {
-    const newProject = { id: crypto.randomUUID(), title: '', techStack: '', location: '', dates: '', description: '' };
+    const newProject = {
+      id: crypto.randomUUID(),
+      title: '',
+      techStack: '',
+      location: '',
+      dates: '',
+      description: '',
+    };
     setProjects([...projects, newProject]);
   };
 
   const deleteProject = (idToRemove) => {
-    setProjects(projects.filter(project => project.id !== idToRemove));
+    setProjects(projects.filter((project) => project.id !== idToRemove));
   };
 
   const handleProjectChange = (id, e) => {
     const { name, value } = e.target;
     setProjects(
       projects.map((project) => {
-        if (project.id === id) { return { ...project, [name]: value }; }
+        if (project.id === id) {
+          return { ...project, [name]: value };
+        }
         return project;
       })
     );
@@ -92,19 +124,26 @@ function App() {
 
   // --- Education Handlers ---
   const addEducation = () => {
-    const newEdu = { id: crypto.randomUUID(), institution: '', degree: '', dates: '' };
+    const newEdu = {
+      id: crypto.randomUUID(),
+      institution: '',
+      degree: '',
+      dates: '',
+    };
     setEducation([...education, newEdu]);
   };
 
   const deleteEducation = (idToRemove) => {
-    setEducation(education.filter(edu => edu.id !== idToRemove));
+    setEducation(education.filter((edu) => edu.id !== idToRemove));
   };
 
   const handleEducationChange = (id, e) => {
     const { name, value } = e.target;
     setEducation(
       education.map((edu) => {
-        if (edu.id === id) { return { ...edu, [name]: value }; }
+        if (edu.id === id) {
+          return { ...edu, [name]: value };
+        }
         return edu;
       })
     );
@@ -112,19 +151,25 @@ function App() {
 
   // --- Skills Handlers ---
   const addSkill = () => {
-    const newSkill = { id: crypto.randomUUID(), categoryName: '', skillItems: '' };
+    const newSkill = {
+      id: crypto.randomUUID(),
+      categoryName: '',
+      skillItems: '',
+    };
     setSkills([...skills, newSkill]);
   };
 
   const deleteSkill = (idToRemove) => {
-    setSkills(skills.filter(skill => skill.id !== idToRemove));
+    setSkills(skills.filter((skill) => skill.id !== idToRemove));
   };
 
   const handleSkillChange = (id, e) => {
     const { name, value } = e.target;
     setSkills(
       skills.map((skill) => {
-        if (skill.id === id) { return { ...skill, [name]: value }; }
+        if (skill.id === id) {
+          return { ...skill, [name]: value };
+        }
         return skill;
       })
     );
@@ -135,18 +180,29 @@ function App() {
   // ==========================================
   return (
     <div className="app-container">
-
       {/* --- EDITOR SIDE (Left) --- */}
       <div className="editor-side">
         <button
           onClick={() => window.print()}
-          style={{ marginBottom: '2rem', padding: '1rem', cursor: 'pointer', background: '#2563eb', color: 'white', border: 'none', borderRadius: '4px', fontWeight: 'bold' }}
+          style={{
+            marginBottom: '2rem',
+            padding: '1rem',
+            cursor: 'pointer',
+            background: '#2563eb',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            fontWeight: 'bold',
+          }}
         >
           Download PDF
         </button>
 
         <h2>Personal Details</h2>
-        <PersonalForm personalInfo={personalInfo} onChange={handlePersonalInfoChange} />
+        <PersonalForm
+          personalInfo={personalInfo}
+          onChange={handlePersonalInfoChange}
+        />
 
         <h2>Experience</h2>
         <ExperienceForm
@@ -173,7 +229,6 @@ function App() {
         />
       </div>
 
-
       {/* --- PREVIEW SIDE (Right) --- */}
       <div className="preview-side">
         <div className="cv-page">
@@ -186,7 +241,6 @@ function App() {
           <EducationPreview education={education} />
         </div>
       </div>
-
     </div>
   );
 }
