@@ -1,70 +1,250 @@
-/* src/App.css */
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --bg-dark: #1f2937;
+  --bg-editor: #f3f4f6;
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --border-color: #d1d5db;
+}
 
-/* 1. The Split Screen Layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-dark);
+}
+
+/* =========================================
+   2. MAIN LAYOUT
+   ========================================= */
 .app-container {
   display: flex;
   height: 100vh;
-  font-family: sans-serif;
+  width: 100vw;
+  overflow: hidden;
 }
 
+/* --- Editor Side (Left) --- */
 .editor-side {
-  width: 40%;
+  width: 450px;
+  min-width: 400px;
+  background-color: var(--bg-editor);
   padding: 2rem;
-  background-color: #f4f4f5;
-  overflow-y: auto; /* Adds a scrollbar if forms get too long */
+  overflow-y: auto;
+  border-right: 1px solid var(--border-color);
 }
 
+.editor-side h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 1rem 0;
+  color: var(--text-main);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* --- Preview Side (Right) --- */
 .preview-side {
-  width: 60%;
-  padding: 2rem;
-  background-color: #52525b; /* Dark background to make the white CV pop */
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 3rem;
   overflow-y: auto;
+  background-color: var(--bg-dark);
 }
 
-/* 2. The A4 Paper Illusion */
-.cv-page {
-  background-color: white;
-  width: 210mm;          /* Standard A4 Width */
-  min-height: 297mm;     /* Standard A4 Height */
-  padding: 20mm;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  color: #1a1a1a;
-}
-
-/* 3. Form Styling (Just to make it readable) */
+/* =========================================
+   3. FORMS & BUTTONS
+   ========================================= */
 .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
-.input-group input {
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.input-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--text-muted);
 }
 
-/* 4. THE PDF EXPORT MAGIC */
+.input-group input,
+.input-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+button {
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+/* Primary Export Button */
+button[onClick*="window.print"] {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary);
+  color: white;
+  font-size: 1rem;
+}
+
+button[onClick*="window.print"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Add Item Button */
+.add-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px dashed var(--primary);
+  margin-top: 1rem;
+}
+
+.add-btn:hover {
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+/* Delete Button */
+button[onClick*="onDelete"] {
+  background-color: white;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+button[onClick*="onDelete"]:hover {
+  background-color: var(--danger);
+  color: white;
+}
+
+/* =========================================
+   4. THE CV PAPER (Preview Layout)
+   ========================================= */
+.cv-page {
+  background-color: white;
+  width: 210mm; /* A4 Width */
+  min-height: 297mm; /* A4 Height */
+  padding: 20mm;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: black;
+  font-size: 11pt;
+  line-height: 1.5;
+}
+
+/* CV Headers */
+.resume-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.resume-name {
+  font-size: 24pt;
+  margin-bottom: 0.25rem;
+  letter-spacing: 1px;
+}
+
+.resume-contact-info {
+  font-size: 10pt;
+  color: #444;
+}
+
+/* CV Sections */
+.resume-section {
+  margin-bottom: 1.5rem;
+}
+
+.resume-section h3 {
+  font-size: 14pt;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.resume-section hr {
+  border: none;
+  border-top: 1px solid black;
+  margin-bottom: 0.75rem;
+}
+
+/* Item Layouts (Experience, Projects, Education) */
+.experience-item, .project-item, .education-item {
+  margin-bottom: 1rem;
+}
+
+.experience-header, .project-header, .education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12pt;
+}
+
+.project-description {
+  margin-top: 0.25rem;
+  text-align: justify;
+}
+
+/* Skills List */
+.skills-list {
+  list-style-type: none;
+}
+
+.skills-list li {
+  margin-bottom: 0.25rem;
+}
+
+/* =========================================
+   5. PDF EXPORT MAGIC (Print Media Query)
+   ========================================= */
 @media print {
-  /* Hide the editor and the dark background when printing */
+  /* Hide the UI */
   .editor-side, button {
     display: none !important;
   }
 
-  .preview-side {
+  /* Reset the container */
+  .app-container, .preview-side {
+    height: auto;
     width: 100%;
     padding: 0;
-    background-color: transparent;
+    margin: 0;
+    background: white;
+    overflow: visible;
   }
 
+  /* Make the CV fill the page */
   .cv-page {
-    box-shadow: none; /* Remove the shadow for the real PDF */
+    box-shadow: none;
     width: 100%;
-    margin: 0;
-    padding: 0;
+    min-height: auto;
+    padding: 0; /* Let the printer handle margins */
   }
 }
